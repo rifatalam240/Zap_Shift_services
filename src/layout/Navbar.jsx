@@ -1,21 +1,26 @@
 import React from "react";
 import { NavLink } from "react-router";
 import Logo from "../logo/Logo";
+import UseAuth from "../authlayout/useauth/UseAuth";
 
 const links = (
- <>
-  <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
-    <NavLink>Services</NavLink>
-    <NavLink>Coverage</NavLink>
-    <NavLink>Pricing</NavLink>
-    <NavLink>About Us</NavLink>
-    <NavLink>Be a Rider</NavLink>
-  </div>
-</>
-
+  <>
+    <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+      <NavLink>Services</NavLink>
+      <NavLink>Coverage</NavLink>
+      <NavLink>Pricing</NavLink>
+      <NavLink>About Us</NavLink>
+      <NavLink>Be a Rider</NavLink>
+    </div>
+  </>
 );
 
 const Navbar = () => {
+  const { user, loading, signout } = UseAuth();
+
+  const handlesignout = () => {
+    signout();
+  };
   return (
     <div className="navbar bg-base-100 py-0 rounded-2xl shadow-sm">
       <div className="navbar-start">
@@ -54,7 +59,15 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        {user ? (
+          <a onClick={handlesignout} className="btn">
+            LogOut
+          </a>
+        ) : (
+          <NavLink to="/login" className="btn">
+            SignIn
+          </NavLink>
+        )}
       </div>
     </div>
   );
