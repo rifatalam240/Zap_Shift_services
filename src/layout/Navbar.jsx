@@ -158,6 +158,18 @@ const Navbar = () => {
             >
               Be a Rider
             </NavLink>
+          </li>{" "}
+          <li>
+            <NavLink
+              to="/sendpercel"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-[#CAEB66] text-[#222] font-semibold px-5 py-1.5 rounded-full hover:bg-[#b6d95a] transition"
+                  : "text-gray-500"
+              }
+            >
+              Send A Percel
+            </NavLink>
           </li>
         </ul>
       </div>
@@ -277,6 +289,18 @@ const Navbar = () => {
                   }
                 >
                   Be a Rider
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/sendpercel"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-[#CAEB66] text-[#222] font-semibold px-5 py-1.5 rounded-full hover:bg-[#b6d95a] transition"
+                      : "text-gray-500"
+                  }
+                >
+                  Send A Percel
                 </NavLink>
               </li>
               {!user ? (
