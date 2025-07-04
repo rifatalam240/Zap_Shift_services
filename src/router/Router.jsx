@@ -7,6 +7,9 @@ import SignUp from "../authlayout/SignUp";
 import Coverage from "../routes/Coverage";
 import PrivateRoute from "../routes/PrivateRoute";
 import SendParcelForm from "../sendpercel/SendParcelForm";
+import Dashboardlayout from "../layout/Dashboardlayout";
+import MypercelPage from "../pages/MypercelPage";
+import Payment from "../pages/Payment";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +35,18 @@ export const router = createBrowserRouter([
     children: [
       { path: "/login", Component: Login },
       { path: "/signup", Component: SignUp },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboardlayout></Dashboardlayout>
+      </PrivateRoute>
+    ),
+    children: [
+      { path: "mypercel", Component: MypercelPage },
+      { path: "payment/:id", Component: Payment },
     ],
   },
 ]);
