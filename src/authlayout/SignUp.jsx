@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { data, NavLink, useNavigate } from "react-router";
 import UseAuth from "./useauth/UseAuth";
+import axios from "axios";
+import useAxiossecure from "../customhook/useAxiossecure";
 
 const SignUp = () => {
-  const { user, createuser, loading, sociallogin } = UseAuth();
+  const { user, createuser, loading, sociallogin, updateprofilepic } =
+    UseAuth();
   const navigate = useNavigate();
+  const [profilepic, setProfilepic] = useState("");
+  const axiossecure = useAxiossecure();
   const {
     register,
     handleSubmit,
@@ -13,9 +18,26 @@ const SignUp = () => {
   } = useForm();
   const onSubmit = (data) => {
     createuser(data.email, data.password)
-      .then((res) => {
-        console.log(res.user);
+      .then(async (res) => {
+        // console.log(res.user);
+        const profileinfo = { displayName: data.name, photoURL: profilepic };
+        updateprofilepic(profileinfo)
+          .then(async () => {
+            console.log("profile updated");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         navigate("/");
+
+        const userinfo = {
+          email: data.email,
+          role: "user", //bydefault//
+          created_at: new Date().toISOString(),
+          last_log_in: new Date().toISOString(),
+        };
+        const userres = await axiossecure.post("/users", userinfo);
+        console.log(userres.data);
       })
       .catch((err) => {
         console.log(err);
@@ -32,6 +54,16 @@ const SignUp = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+  const handleFileChange = async (e) => {
+    const image = e.target.files[0];
+    const formdata = new FormData();
+    formdata.append("image", image);
+    setProfilepic("img", image);
+    const url = `https://api.imgbb.com/1/upload?expiration=600&key=${
+      import.meta.env.VITE_upload_image_key
+    }`;
+    const res = await axios.post(url, formdata);
   };
   return (
     <div className="flex justify-center items-center min-h-screen bg-white md:bg-[#FAFDF0] lg:bg-white lg:block">
@@ -52,6 +84,17 @@ const SignUp = () => {
               {...register("name", { required: true })}
               className="w-full border border-[#e5e5e5] rounded-md px-3 py-2 focus:outline-none focus:border-[#CAEB66] bg-white"
               placeholder="Name"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-[#03363D] mb-1 font-medium">
+              Your Profile Picture
+            </label>
+            <input
+              type="file"
+              onChange={handleFileChange}
+              className="w-full border border-[#e5e5e5] rounded-md px-3 py-2 focus:outline-none focus:border-[#CAEB66] bg-white"
+              placeholder="Profile Picture"
             />
           </div>
           <div className="mb-4">
