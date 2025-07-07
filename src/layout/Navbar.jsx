@@ -171,6 +171,18 @@ const Navbar = () => {
               Send A Percel
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-[#CAEB66] text-[#222] font-semibold px-5 py-1.5 rounded-full hover:bg-[#b6d95a] transition"
+                  : "text-gray-500"
+              }
+            >
+              Dashboard
+            </NavLink>
+          </li>
         </ul>
       </div>
 
@@ -301,6 +313,18 @@ const Navbar = () => {
                   }
                 >
                   Send A Percel
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "bg-[#CAEB66] text-[#222] font-semibold px-5 py-1.5 rounded-full hover:bg-[#b6d95a] transition"
+                      : "text-gray-500"
+                  }
+                >
+                  Dashboard
                 </NavLink>
               </li>
               {!user ? (

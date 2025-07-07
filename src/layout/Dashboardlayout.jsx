@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 
 const Dashboardlayout = () => {
   return (
@@ -43,10 +43,12 @@ const Dashboardlayout = () => {
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
           {/* Sidebar content here */}
           <li>
-            <a>Sidebar Item 1</a>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <a>Sidebar Item 2</a>
+            <NavLink to="/dashboard/mypercel">My Parcels</NavLink>
+          </li> <li>
+            <NavLink to="/dashboard/paymenthistory">Payment History</NavLink>
           </li>
         </ul>
       </div>

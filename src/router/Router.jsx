@@ -10,6 +10,7 @@ import SendParcelForm from "../sendpercel/SendParcelForm";
 import Dashboardlayout from "../layout/Dashboardlayout";
 import MypercelPage from "../pages/MypercelPage";
 import Payment from "../pages/Payment";
+import MyPaymentHistory from "../pages/MyPaymentHistory";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -47,6 +48,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "mypercel", Component: MypercelPage },
       { path: "payment/:id", Component: Payment },
+      { path: "paymenthistory", Component: MyPaymentHistory },
     ],
   },
 ]);
